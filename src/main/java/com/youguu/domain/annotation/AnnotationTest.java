@@ -5,4 +5,5 @@ package com.youguu.domain.annotation;
 @MyAnnotation3("")
 public class AnnotationTest {
 
+
 }
