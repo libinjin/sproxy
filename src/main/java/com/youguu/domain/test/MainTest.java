@@ -1,8 +1,11 @@
 package com.youguu.domain.test;
 
+import com.youguu.domain.annotation.MyAnnotation;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+@MyAnnotation("aa")
 public class MainTest {
 
     public static void main(String[] args) throws IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
@@ -20,15 +23,41 @@ public class MainTest {
             System.out.println(arr[i].getName());
         }*/
 
+      /*  Method m2 = cl.getMethod("f1",java.lang.Integer.class);
+
+        Method f1 = cl.getMethod("f2");
+
+        f1.invoke(cl.newInstance());*/
+
+        Class mainClass = MainTest.class;
+
+        MyAnnotation myAnnotation = (MyAnnotation) mainClass.getAnnotation(MyAnnotation.class);
+
+        System.out.println(myAnnotation.value());
+
+        Class cls = MyTest.class;
+
+        Method[] methods = cls.getMethods();
+
+        for (int i = 0; i < methods.length; i++) {
+            Method methods1 = methods[i];
+            if(methods1.isAnnotationPresent(MyTests.class)){
+
+                MyTests myTests = methods1.getAnnotation(MyTests.class);
+
+                String value = myTests.value();
+
+                System.out.println(methods[i].getName()+"方法的注解value："+value);
+            }
+
+        }
+
         Class cl = MyTest.class;
 
-        Method f1 = cl.getMethod("f1",java.lang.Integer.class);
-
-        f1.invoke(cl.newInstance(),3);
         //
         Method[] arr = cl.getMethods();
 
-        //让带有注解的方法执行
+       /* //让带有注解的方法执行
         for (Method m : arr){
 
             //判断方法是否有指定的@MyTests注解
@@ -37,7 +66,7 @@ public class MainTest {
                 //System.out.println(m.getName());
                 m.invoke(cl.newInstance());
             }
-        }
+        }*/
 
     }
 
